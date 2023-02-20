@@ -1,52 +1,55 @@
-let tasks = [];
-const taskList = document.getElementById('list');
-const addTaskInput = document.getElementById('add');
-const tasksCounter = document.getElementById('tasks-counter');
-let taskDone="Not Completed";
-
-
-async function fetchToDo()
-{
-//   fetch('https://jsonplaceholder.typicode.com/todos')
-//   .then(function(response)
-//   {
-//     return response.json();
-//   }).then(function(data)
-//   {
     
-//     tasks=data.slice(0,10);
-//     renderList()
-//   })
-//   .catch(function(error)
-//   {
-//     console.log(error);
-//   })
+    
+    (function(){
+        let tasks = [];
+    const taskList = document.getElementById('list');
+    const addTaskInput = document.getElementById('add');
+    const tasksCounter = document.getElementById('tasks-counter');
+    let taskDone="Not Completed";
 
-try{
+
+    async function fetchToDo()
+    {
+    //   fetch('https://jsonplaceholder.typicode.com/todos')
+    //   .then(function(response)
+    //   {
+    //     return response.json();
+    //   }).then(function(data)
+    //   {
+
+    //     tasks=data.slice(0,10);
+    //     renderList()
+    //   })
+    //   .catch(function(error)
+    //   {
+    //     console.log(error);
+    //   })
+
+    try{
     const response= await fetch('https://jsonplaceholder.typicode.com/todos');
     const data=await response.json()
     tasks=data.slice(0,10);
     renderList()
-}
-catch(error){
- console.log(error)
-}
-     
-}
+    }
+    catch(error){
+    console.log(error)
+    }
+        
+    }
 
-function addTaskToDOM(task)
-{
- const li = document.createElement('li');
- li.innerHTML=
- `<input type="checkbox" id="${task.id}" ${task.completed?'checked':''} class="custom-checkbox">
- <label for="${task.id}">${task.title}</label>
- <img src="bin.png" class="delete" data-id="${task.id}" />
- `
+    function addTaskToDOM(task)
+    {
+    const li = document.createElement('li');
+    li.innerHTML=
+    `<input type="checkbox" id="${task.id}" ${task.completed?'checked':''} class="custom-checkbox">
+    <label for="${task.id}">${task.title}</label>
+    <img src="bin.png" class="delete" data-id="${task.id}" />
+    `
 
- taskList.append(li);
-}
+    taskList.append(li);
+    }
 
-function renderList () {
+    function renderList () {
     taskList.innerHTML='';
 
     for(let i in tasks)
@@ -55,13 +58,13 @@ function renderList () {
     }
 
     tasksCounter.innerHTML=tasks.length;
- 
-}
 
-function ToggleTask(taskId) 
-{
-   for(let i of tasks)
-   {
+    }
+
+    function ToggleTask(taskId) 
+    {
+    for(let i of tasks)
+    {
     if(i.id===Number(taskId))
     {
         i.completed=!i.completed;
@@ -77,58 +80,58 @@ function ToggleTask(taskId)
         renderList();
         return;
     }
-   }
-}
+    }
+    }
 
-function deleteTask(taskId) {
-    
-const newTask=tasks.filter(function(task)
-{
+    function deleteTask(taskId) {
+
+    const newTask=tasks.filter(function(task)
+    {
     return task.id!=Number(taskId);
-})
-tasks=newTask;
-renderList();
-showNotification("Task Deleted Successfully");
+    })
+    tasks=newTask;
+    renderList();
+    showNotification("Task Deleted Successfully");
 
-}
+    }
 
-function addTask(task) {
+    function addTask(task) {
 
     //   fetch('https://jsonplaceholder.typicode.com/todos',{
-//   method: 'POST', // or 'PUT'
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   body: JSON.stringify(task),
-// })
-//   .then(function(response)
-//   {
-//     return response.json();
-//   }).then(function(data)
-//   {
-    
-//     tasks.push(task);
-//     renderList();
-//     showNotification("Task Added Successfully");
-//   })
-//   .catch(function(error)
-//   {
-//     console.log(error);
-//   })
+    //   method: 'POST', // or 'PUT'
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(task),
+    // })
+    //   .then(function(response)
+    //   {
+    //     return response.json();
+    //   }).then(function(data)
+    //   {
 
-    
+    //     tasks.push(task);
+    //     renderList();
+    //     showNotification("Task Added Successfully");
+    //   })
+    //   .catch(function(error)
+    //   {
+    //     console.log(error);
+    //   })
+
+
         tasks.push(task);
         renderList();
         showNotification("Task Added Successfully");
         return;
-}
+    }
 
-function showNotification(text) {
+    function showNotification(text) {
     window.alert(text);
-}
+    }
 
-function handleInputKeypress(event)
-{
+    function handleInputKeypress(event)
+    {
     if(event.key==="Enter")
     {
         const text=event.target.value;
@@ -148,10 +151,10 @@ function handleInputKeypress(event)
         addTask(task);
 
     }
-}
+    }
 
-function HandleClickListner(event)
-{
+    function HandleClickListner(event)
+    {
     const target=event.target;
     if(target.className==='delete')
     {
@@ -159,17 +162,20 @@ function HandleClickListner(event)
     }
     else if(target.className==='custom-checkbox')
     {
-         ToggleTask(target.id)
+            ToggleTask(target.id)
     }
 
-}
+    }
 
 
-function initializeApp()
-{
+    function initializeApp()
+    {
     fetchToDo();
     addTaskInput.addEventListener("keyup",handleInputKeypress);
-document.addEventListener('click',HandleClickListner)
-}
+    document.addEventListener('click',HandleClickListner)
+    }
 
-initializeApp();
+    initializeApp();
+
+    })();
+    
