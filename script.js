@@ -5,23 +5,33 @@ const tasksCounter = document.getElementById('tasks-counter');
 let taskDone="Not Completed";
 
 
-function fetchToDo()
+async function fetchToDo()
 {
-  fetch('https://jsonplaceholder.typicode.com/todos')
-  .then(function(response)
-  {
-    return response.json();
-  }).then(function(data)
-  {
+//   fetch('https://jsonplaceholder.typicode.com/todos')
+//   .then(function(response)
+//   {
+//     return response.json();
+//   }).then(function(data)
+//   {
     
+//     tasks=data.slice(0,10);
+//     renderList()
+//   })
+//   .catch(function(error)
+//   {
+//     console.log(error);
+//   })
+
+try{
+    const response= await fetch('https://jsonplaceholder.typicode.com/todos');
+    const data=await response.json()
     tasks=data.slice(0,10);
     renderList()
-  })
-  .catch(function(error)
-  {
-    console.log(error);
-  })
-
+}
+catch(error){
+ console.log(error)
+}
+     
 }
 
 function addTaskToDOM(task)
@@ -83,6 +93,28 @@ showNotification("Task Deleted Successfully");
 }
 
 function addTask(task) {
+
+    //   fetch('https://jsonplaceholder.typicode.com/todos',{
+//   method: 'POST', // or 'PUT'
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify(task),
+// })
+//   .then(function(response)
+//   {
+//     return response.json();
+//   }).then(function(data)
+//   {
+    
+//     tasks.push(task);
+//     renderList();
+//     showNotification("Task Added Successfully");
+//   })
+//   .catch(function(error)
+//   {
+//     console.log(error);
+//   })
 
     
         tasks.push(task);
